@@ -2,7 +2,7 @@
 
 #### By Cristina Plesa
 
-#### A C# application that 
+#### A C# application that utilizes Identity for account creation capability. Each user can create Baked treats and attach them through Entity database to different flavors. This application relies on MySQL Workbench for database creation and storage.
 
 ## Technologies Used
 
