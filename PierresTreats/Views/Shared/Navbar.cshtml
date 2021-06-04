@@ -1,0 +1,25 @@
+@using System.Security.Claims
+
+<div class="row" id="navbar">
+  <div class="col-4">
+    <p>@Html.ActionLink("Home", "Index", "Home")</p>
+  </div>
+  @if (User.Identity.IsAuthenticated)
+  {
+    <div class="col-4">
+      @User.Identity.Name
+    </div>
+    <div class="col-4">
+    @using (Html.BeginForm("LogOff", "Account"))
+    {
+      <input type="submit" class="btn btn-default" value="Log out" />
+    }
+    </div>
+  }
+  else
+  {
+    <div class="col-8">
+    <p>@Html.ActionLink("Create an account", "Index", "Account")</p>
+    </div>
+  }
+</div>
