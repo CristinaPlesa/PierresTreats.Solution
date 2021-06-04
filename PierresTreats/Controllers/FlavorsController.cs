@@ -32,6 +32,26 @@ namespace PierresTreats.Controllers
       return View(userFlavors);
     }
 
-    
+    public ActionResult Create()
+    {
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "Name");
+      return View();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Create(Flavor flavor, int TreatId)
+    {
+      var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+      var currentUser = await _userManager.FindByIdAsync(userId);
+      flavor.User = currentUser;
+      _db.Flavors.Add(flavor);
+      _db.SaveChanges();
+      if (TreatId != 0)
+      {
+          _db.FlavorTreat.Add(new FlavorTreat() { TreatId = TreatId, FlavorId = flavor.FlavorId });
+  }
+      _db.SaveChanges();
+      return RedirectToAction("Index");
+    }
   }
 }
