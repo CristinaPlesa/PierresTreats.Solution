@@ -9,9 +9,9 @@
   <link rel="stylesheet" href="~/css/styles.css">
 </head>
 
+@await Html.PartialAsync("Navbar")
 <body>
   <div class="container-fluid">
-  @await Html.PartialAsync("Navbar")
   @RenderBody()
   </div>
 </body>

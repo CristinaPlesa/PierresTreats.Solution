@@ -44,6 +44,11 @@ namespace PierresTreats.Controllers
       }
     }
 
+    public ActionResult Login()
+    {
+        return View();
+    }
+
     [HttpPost]
     public async Task<ActionResult> Login(LoginViewModel model)
     {

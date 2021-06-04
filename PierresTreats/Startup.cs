@@ -11,7 +11,6 @@ namespace PierresTreats
 {
   public class Startup
   {
-    public IConfigurationRoot Configuration { get; set; }
 
     public Startup(IWebHostEnvironment env)
     {
@@ -20,6 +19,7 @@ namespace PierresTreats
         .AddJsonFile("appsettings.json");
       Configuration = builder.Build();
     }
+    public IConfigurationRoot Configuration { get; set; }
 
     public void ConfigureServices(IServiceCollection services)
     {
@@ -28,6 +28,10 @@ namespace PierresTreats
       services.AddEntityFrameworkMySql()
         .AddDbContext<PierresTreatsContext>(options => options
         .UseMySql(Configuration["ConnectionStrings:DefaultConnection"], ServerVersion.AutoDetect(Configuration["ConnectionStrings:DefaultConnection"])));
+
+      services.AddIdentity<ApplicationUser, IdentityRole>()
+      .AddEntityFrameworkStores<PierresTreatsContext>()
+      .AddDefaultTokenProviders();
 
       services.Configure<IdentityOptions>(options =>
       {
