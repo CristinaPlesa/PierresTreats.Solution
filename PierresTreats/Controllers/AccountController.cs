@@ -1,29 +1,68 @@
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using PierresTreats.ViewModels;
 using PierresTreats.Models;
 
 namespace PierresTreats.Controllers
 {
-  public class HomeController : Controller
-  {
-     private readonly PierresTreatsContext _db;
-      public HomeController(PierresTreatsContext db)
+  public class AccountController : Controller
+  {  
+    private readonly PierresTreatsContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<ApplicationUser> _signInManager;
+
+    public AccountController (UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, PierresTreatsContext db)
     {
+      _userManager = userManager;
+      _signInManager = signInManager;
       _db = db;
     }
-
-    [HttpGet("/")]
+  
     public ActionResult Index()
     {
-      Dictionary<string, object> model = new Dictionary<string, object>();
-      List<Treat> treats = _db.Treats.ToList();
-      List<Flavor> flavors = _db.Flavors.ToList();
-      model.Add("treats", treats);
-      model.Add("flavors", flavors);
-      return View(model);
+      return View();
+    }
+
+    public IActionResult Register()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Register (RegisterViewModel model)
+    {
+      var user = new ApplicationUser { UserName = model.Email };
+      IdentityResult result = await _userManager.CreateAsync(user, model.Password);
+      if (result.Succeeded)
+      {
+        return RedirectToAction("Index");
+      }
+      else
+      {
+        return View();
+      }
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Login(LoginViewModel model)
+    {
+      Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
+      if (result.Succeeded)
+      {
+        return RedirectToAction("Index", "Home");
+      }
+      else
+      {
+        return View();
+      }
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> LogOff()
+    {
+      await _signInManager.SignOutAsync();
+      return RedirectToAction("Index", "Home");
     }
   }
 }
