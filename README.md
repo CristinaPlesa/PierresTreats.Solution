@@ -37,15 +37,13 @@
   * Finally, run the command dotnet run to run the project!
   * Note: dotnet run also restores and builds the project, so you can use this single command to start the console app
 
-  <!-- // THIS IS THE MOST IMPORTANT STEP, AND IT’S NEW. YOU MUST TELL US HOW TO SET UP YOUR DATABASE -->
+5. Add an appsettings.json file to the PierresTreats.Solution/PierresTreats directory and add the following:
+{
+  "ConnectionStrings": {
+      "DefaultConnection": "Server=localhost;Port=3306;database=pierres_treats;uid=root;pwd=YourPassword;"
+  }
+}
 
-5. Create a database using SQL via MySQL:
-   
-> `CREATE DATABASE <firstname_lastname>;`
-> `USE <firstname_lastname>;`
-> `CREATE TABLE <tablename> (<column/property information>);`
-> `CREATE TABLE <tablename> (<column/property information>);`
-      ` ….(more if there are more!)`
 
 ## Known Bugs
 
