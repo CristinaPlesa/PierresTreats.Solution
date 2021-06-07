@@ -1,5 +1,6 @@
 body {
   text-align: center;
+  background-color: rgb(231, 235, 238);
 }
 
 #navbar {
@@ -8,4 +9,8 @@ body {
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+
+.userNav {
+  color: aliceblue;
 }
