@@ -52,7 +52,7 @@ namespace PierresTreats
       app.UseAuthorization();
       app.UseEndpoints(routes =>
       {
-        routes.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id}");
+        routes.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
       });
 
       app.UseStaticFiles();

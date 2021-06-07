@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PierresTreats.Migrations
 {
-    public partial class Initial : Migration
+    public partial class UpdateFiles : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
